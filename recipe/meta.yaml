@@ -20,6 +20,8 @@ requirements:
     - {{ compiler("c") }}
     - {{ stdlib("c") }}
     - cmake 3.*
+    - make  # [unix]
+    - jom  # [win]
     - python  # [win]
 
 test:
