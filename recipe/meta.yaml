@@ -14,24 +14,13 @@ source:
 
 build:
   number: 1
-  features:
-    - vc9   # [win and py27]
-    - vc10  # [win and py34]
-    - vc14  # [win and py>=35]
 
 requirements:
   build:
-    - toolchain
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
     - cmake 3.*
-    - python     # [win]
-    - vc 9       # [win and py27]
-    - vc 10      # [win and py34]
-    - vc 14      # [win and py>=35]
-
-  run:
-    - vc 9       # [win and py27]
-    - vc 10      # [win and py34]
-    - vc 14      # [win and py>=35]
+    - python  # [win]
 
 test:
   requires:
@@ -47,7 +36,7 @@ test:
     - test -f ${PREFIX}/lib/lib{{ name }}.so  # [linux]
     - pkg-config --cflags --libs {{ name }}  # [unix]
 
-    - if not exist %PREFIX%\\Library\\include\\{{name }}\\{{ name }}_common.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\{{ name }}\\{{ name }}_common.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ name }}_s.lib exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ name }}.dll exit 1  # [win]
 
