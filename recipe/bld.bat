@@ -13,9 +13,9 @@ cmake --build build --parallel %CPU_COUNT%
 if errorlevel 1 exit 1
 
 :: Test.
-cmake --build build --target test %CPU_COUNT%
+cmake --build build --target test --parallel %CPU_COUNT%
 if errorlevel 1 exit 1
 
 :: Install.
-cmake --install build %CPU_COUNT%
+cmake --install build --parallel %CPU_COUNT%
 if errorlevel 1 exit 1
