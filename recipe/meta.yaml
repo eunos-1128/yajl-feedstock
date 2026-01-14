@@ -20,7 +20,6 @@ requirements:
     - cmake 3.*
     - make  # [unix]
     - jom  # [win]
-    - python  # [win]
 
 test:
   requires:
