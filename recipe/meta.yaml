@@ -1,14 +1,13 @@
 {% set author = "lloyd" %}
 {% set name = "yajl" %}
 {% set version = "2.1.0" %}
-{% set sha256sum = "c825498ec95ac58d96d03e210a7b61e94f7d7da87ba42d4862d51f9fcf07c823" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://github.com/{{ author }}/{{ name }}/archive/{{ version }}.tar.gz
+  url: https://github.com/{{ author }}/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
   sha256: 3fb73364a5a30efe615046d07e6db9d09fd2b41c763c5f7d3bfb121cd5c5ac5a
 
 build:
