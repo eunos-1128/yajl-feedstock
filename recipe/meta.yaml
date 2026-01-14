@@ -8,9 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://github.com/{{ author }}/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: {{ sha256sum }}
+  sha256: 3fb73364a5a30efe615046d07e6db9d09fd2b41c763c5f7d3bfb121cd5c5ac5a
 
 build:
   number: 1
