@@ -1,11 +1,7 @@
 @echo on
 
-set LIB=%LIBRARY_LIB%;%LIB%
-set LIBPATH=%LIBRARY_LIB%;%LIBPATH%
-set INCLUDE=%LIBRARY_INC%;%INCLUDE%;%RECIPE_DIR%
-
 :: Configure.
-cmake -S . -B build -G "NMake Makefiles JOM" %CMAKE_ARGS%
+cmake -S . -B build -G "NMake Makefiles JOM" %CMAKE_ARGS% -DBUILD_SHARED_LIBS=ON
 if errorlevel 1 exit 1
 
 :: Build.
