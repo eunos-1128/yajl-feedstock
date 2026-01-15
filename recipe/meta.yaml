@@ -44,14 +44,16 @@ test:
 
 about:
   home: https://lloyd.github.io/yajl/
+  dev_url: https://github.com/lloyd/yajl
+  
   license: ISC
   license_file: COPYING
   summary: Yet Another JSON Library
   description: |
     YAJL is a small event-driven (SAX-style) JSON parser written in ANSI C, and
     a small validating JSON generator. YAJL is released under the ISC license.
-  dev_url: https://github.com/lloyd/yajl
 
 extra:
   recipe-maintainers:
     - rmax
+    - eunos-1128
