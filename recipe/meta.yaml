@@ -1,37 +1,27 @@
 {% set author = "lloyd" %}
 {% set name = "yajl" %}
 {% set version = "2.1.0" %}
-{% set sha256sum = "3fb73364a5a30efe615046d07e6db9d09fd2b41c763c5f7d3bfb121cd5c5ac5a" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://github.com/{{ author }}/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: {{ sha256sum }}
+  url: https://github.com/{{ author }}/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 3fb73364a5a30efe615046d07e6db9d09fd2b41c763c5f7d3bfb121cd5c5ac5a
 
 build:
-  number: 0
-  features:
-    - vc9   # [win and py27]
-    - vc10  # [win and py34]
-    - vc14  # [win and py>=35]
+  number: 1
+  run_exports:
+    - {{ pin_subpackage(name, max_pin="x") }}
 
 requirements:
   build:
-    - toolchain
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
     - cmake 3.*
-    - python     # [win]
-    - vc 9       # [win and py27]
-    - vc 10      # [win and py34]
-    - vc 14      # [win and py>=35]
-
-  run:
-    - vc 9       # [win and py27]
-    - vc 10      # [win and py34]
-    - vc 14      # [win and py>=35]
+    - make  # [unix]
+    - jom  # [win]
 
 test:
   requires:
@@ -47,7 +37,7 @@ test:
     - test -f ${PREFIX}/lib/lib{{ name }}.so  # [linux]
     - pkg-config --cflags --libs {{ name }}  # [unix]
 
-    - if not exist %PREFIX%\\Library\\include\\{{name }}\\{{ name }}_common.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\{{ name }}\\{{ name }}_common.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ name }}_s.lib exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ name }}.dll exit 1  # [win]
 
@@ -56,14 +46,16 @@ test:
 
 about:
   home: https://lloyd.github.io/yajl/
+  dev_url: https://github.com/lloyd/yajl
+  
   license: ISC
   license_file: COPYING
   summary: Yet Another JSON Library
   description: |
     YAJL is a small event-driven (SAX-style) JSON parser written in ANSI C, and
     a small validating JSON generator. YAJL is released under the ISC license.
-  dev_url: https://github.com/lloyd/yajl
 
 extra:
   recipe-maintainers:
     - rmax
+    - eunos-1128

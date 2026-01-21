@@ -1,23 +1,11 @@
 #!/bin/bash
 set -ex
 
-EXTRA_CMAKE_ARGS=""
-if [[ `uname` == "Darwin" ]]; then
-  EXTRA_CMAKE_ARGS="${EXTRA_CMAKE_ARGS} -DCMAKE_MACOSX_RPATH=ON"
+cmake -S . -B build ${CMAKE_ARGS} -DBUILD_SHARED_LIBS=ON
+cmake --build build --parallel ${CPU_COUNT}
+
+if [[ ${build_platform} == ${target_platform} || (${build_platform} != ${target_platform} && ${target_platform} != "osx-arm64") ]]; then 
+  cmake --build build --target test --parallel ${CPU_COUNT}
 fi
 
-mkdir -p cmake-build
-cd cmake-build
-
-cmake -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_PREFIX_PATH=${PREFIX} \
-      -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-      -DCMAKE_INSTALL_RPATH=${PREFIX}/lib \
-      -DCMAKE_EXE_LINKER_FLAGS="-Wl,-rpath,${PREFIX}/lib -L${PREFIX}/lib" \
-      ${EXTRA_CMAKE_ARGS} ${SRC_DIR}
-
-make -j${CPU_COUNT}
-
-make -j${CPU_COUNT} test
-
-make -j${CPU_COUNT} install
+cmake --install build --parallel ${CPU_COUNT}
